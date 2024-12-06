@@ -11,15 +11,16 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 637423631641.dkr.ecr.us-east-1.amazonaws.com  build:
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 637423631641.dkr.ecr.us-east-1.amazonaws.com 
+  build:
     commands:
       - echo Building the Docker image...
-- docker build -t my-nodeapp .
-- docker tag my-nodeapp:latest 637423631641.dkr.ecr.us-east-1.amazonaws.com/my-nodeapp:demo-1  
+      - docker build -t my-nodeapp .
+      - docker tag my-nodeapp:latest 637423631641.dkr.ecr.us-east-1.amazonaws.com/my-nodeapp:demo-1  
 post_build:
     commands:
       - echo Pushing the Docker image to Amazon ECR...
- - docker push 637423631641.dkr.ecr.us-east-1.amazonaws.com/my-nodeapp:demo-1
+      - docker push 637423631641.dkr.ecr.us-east-1.amazonaws.com/my-nodeapp:demo-1
 artifacts:
   files:
     - "**/*"
